@@ -22,10 +22,12 @@ public class MainController {
     @Autowired
     private CatRepository catRepository;
     Logger log = LoggerFactory.getLogger(MainController.class);
+
     @Operation(
             summary = "adds cat into db",
             description = "gets DTO of cat and using builder adds entity into db"
     )
+
     @PostMapping("/api/add")
     public void addCat(@RequestBody CatDTO cat){
         log.info("New row " + catRepository.save(Cat.builder()
@@ -35,6 +37,7 @@ public class MainController {
                 .build()
         ));
     }
+
     @SneakyThrows
     @GetMapping("/api/all")
     public List<Cat> getAll(){
@@ -50,6 +53,7 @@ public class MainController {
     public void deleteCat(@RequestParam int id){
         catRepository.deleteById(id);
     }
+
     @PutMapping
     public String changeCat(@RequestBody Cat cat){
         if (!catRepository.existsById(cat.getId())){
